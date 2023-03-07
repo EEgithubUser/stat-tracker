@@ -1,0 +1,270 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<br />
+<form method="POST">
+  <div class="row">
+    <div class="col" width="33.33%">
+      <img src="../static/images/j2quick.jpg" alt="j2quick" class="center" />
+    </div>
+    <div class="col" width="33.33%">
+      <div
+        style="
+          font-size: 1.75vw;
+          text-align: center;
+          border-width: 3px;
+          border-style: solid;
+        "
+      >
+        ENTER IN YOUR START AND END TIME, THEN CLICK THE MINUTES BUTTON BELOW
+        (WHOLE NUMS ONLY ATM)
+      </div>
+      <form method="POST">
+        <div class="form-group" style="float: left">
+          <label for="START"></label>
+          <input
+            type="number"
+            class="form-control"
+            id="min_start"
+            name="min_start"
+            placeholder="START"
+            style="
+              height: 14vh;
+              width: 12vw;
+              border-radius: 0;
+              font-size: 2.5vw;
+              text-align: center;
+              border-width: 1.5px;
+              border-style: solid;
+            "
+          />
+        </div>
+        <div class="form-group" style="float: left">
+          <label for="END"></label>
+          <input
+            type="number"
+            class="form-control"
+            id="min_end"
+            name="min_end"
+            placeholder="END"
+            style="
+              height: 14vh;
+              width: 12vw;
+              border-radius: 0;
+              font-size: 2.5vw;
+              text-align: center;
+              border-width: 1.5px;
+              border-style: solid;
+            "
+          />
+        </div>
+      </form>
+      <div>
+        <button
+          type="submit"
+          id="clear"
+          name="stats"
+          value="reset"
+          style="
+            display: inline;
+            height: 6vh;
+            width: 100%;
+            border-radius: 0;
+            font-size: 1.5vw;
+            text-align: center;
+            color: black;
+          "
+          class="btn btn-primary button btn-group blocks"
+        >
+          RESET STATS
+        </button>
+      </div>
+    </div>
+    <div
+      class="col"
+      style="
+        font-size: 2.25vw;
+        border-width: 3px;
+        border-style: solid;
+        text-align: center;
+      "
+      width="33.33%"
+    >
+      POINTS: {{ stat.pts }} <br />REBOUNDS: {{ stat.rbs }}<br />ASSISTS: {{
+      stat.asts }}<br />STEALS: {{ stat.stls }}<br />TURNOVERS: {{ stat.tos
+      }}<br />BLOCKS: {{ stat.blks }}<br />MINUTES: {{ stat.mins }}
+    </div>
+    <div class="text-center">
+      <br />
+      <div class="btn-group blocks">
+        <button
+          type="submit"
+          id="1 point"
+          name="stats"
+          value="1"
+          style="
+            height: 17vh;
+            width: 6.67vw;
+            border-radius: 0;
+            font-size: 1.5vw;
+          "
+          class="btn btn-primary"
+        >
+          1
+        </button>
+        <button
+          type="submit"
+          id="2 point"
+          name="stats"
+          value="2"
+          style="
+            height: 17vh;
+            width: 6.67vw;
+            border-radius: 0;
+            font-size: 1.5vw;
+          "
+          class="btn btn-primary"
+        >
+          2
+        </button>
+        <button
+          type="submit"
+          id="3 point"
+          name="stats"
+          value="3"
+          style="
+            height: 17vh;
+            width: 6.67vw;
+            border-radius: 0;
+            padding: 24px 12px;
+            margin-right: 5px;
+            font-size: 1.5vw;
+          "
+          class="btn btn-primary"
+        >
+          3
+        </button>
+        <button
+          type="submit"
+          id="turnovers"
+          name="stats"
+          value="tos"
+          style="
+            height: 17vh;
+            width: 20vw;
+            margin: 0 5px;
+            border-radius: 0;
+            font-size: 1.5vw;
+          "
+          class="btn btn-primary"
+        >
+          TURNOVER
+        </button>
+        <button
+          type="submit"
+          id="minutes"
+          name="stats"
+          value="mins"
+          style="
+            height: 17vh;
+            width: 20vw;
+            margin: 0 5px;
+            border-radius: 0;
+            font-size: 1.5vw;
+          "
+          class="btn btn-primary"
+        >
+          MINUTES
+        </button>
+        <button
+          type="submit"
+          id="save"
+          name="stats"
+          value="save"
+          style="
+            height: 17vh;
+            width: 20vw;
+            margin: 0 5px;
+            border-radius: 0;
+            font-size: 1.5vw;
+          "
+          class="btn btn-primary"
+        >
+          SAVE
+        </button>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="text-center">
+      <div class="btn-group blocks">
+        <button
+          type="submit"
+          id="rebounds"
+          name="stats"
+          value="rbs"
+          style="
+            height: 17vh;
+            width: 20vw;
+            border-radius: 0;
+            margin: 0px 5px 0px 0px;
+            font-size: 1.5vw;
+          "
+          class="btn btn-primary"
+        >
+          REBOUNDS
+        </button>
+        <button
+          type="submit"
+          id="assists"
+          name="stats"
+          value="asts"
+          style="
+            height: 17vh;
+            width: 20vw;
+            border-radius: 0;
+            margin: 0 5px;
+            font-size: 1.5vw;
+          "
+          class="btn btn-primary"
+        >
+          ASSISTS
+        </button>
+        <button
+          type="submit"
+          id="steals"
+          name="stats"
+          value="stls"
+          style="
+            height: 17vh;
+            width: 20vw;
+            border-radius: 0;
+            margin: 0 5px;
+            font-size: 1.5vw;
+          "
+          class="btn btn-primary"
+        >
+          STEALS
+        </button>
+        <button
+          type="submit"
+          id="blocks"
+          name="stats"
+          value="blks"
+          style="
+            height: 17vh;
+            width: 20vw;
+            margin: 0 5px;
+            border-radius: 0;
+            font-size: 1.5vw;
+          "
+          class="btn btn-primary"
+        >
+          BLOCKS
+        </button>
+      </div>
+    </div>
+    <br />
+    {% endblock %}
+  </div>
+</form>

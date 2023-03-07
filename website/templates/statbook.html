@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block title %}Statbook{% endblock %} {% block
+content %}
+<style>
+  table,
+  th,
+  td {
+    border: 1px solid black;
+  }
+</style>
+
+<h1 align="center">Stat Log</h1>
+
+<table style="width: 100%">
+  <tr>
+    <th>DATE</th>
+    <th>STAT LINE</th>
+  </tr>
+  <ul class="list-group list-group-flush" id="statbook">
+    {% for stat in user.statsnapshots %}
+    <tr>
+      <td>{{ stat.date.strftime('%m-%d-%Y') }}</td>
+      <td>
+        {{ stat.statline }}
+        <button
+          type="button"
+          class="close"
+          onClick="deleteStatsnapshot({{ stat.id }})"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </ul>
+  {% endblock %}
+</table>
