@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 from flask_migrate import Migrate
-from dotenv import load_dotenv
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
