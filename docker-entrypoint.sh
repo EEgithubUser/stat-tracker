@@ -2,4 +2,4 @@
 
 flask db upgrade
 
-exec gunicorn --bind 0.0.0.0:80 "main"
+exec gunicorn --bind 0.0.0.0:80 "main:app"
