@@ -1,5 +1,6 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
 %}
+
 <br />
 <form method="POST">
   <div class="row">
@@ -176,7 +177,7 @@
           MINUTES
         </button>
         <button
-          type="submit"
+          type="button"
           id="save"
           name="stats"
           value="save"
@@ -187,7 +188,8 @@
             border-radius: 0;
             font-size: 1.5vw;
           "
-          class="btn btn-primary"
+          class="btn btn-primary open-button"
+          onclick="openForm()"
         >
           SAVE
         </button>
@@ -265,6 +267,57 @@
       </div>
     </div>
     <br />
-    {% endblock %}
+  </div>
+
+  <!-- The form -->
+  <div class="form-popup" id="myForm">
+    <form method="POST" class="form-container">
+      <h1>GAME INFO</h1>
+
+      <label for="game_date"><b>Date</b></label>
+      <input
+        type="text"
+        placeholder="Enter Game Date"
+        name="game_date"
+        required
+      />
+
+      <label for="team1"><b>Team 1</b></label>
+      <input
+        type="text"
+        placeholder="Enter 1st Team Name"
+        name="team1"
+        required
+      />
+
+      <label for="team2"><b>Team 2</b></label>
+      <input
+        type="text"
+        placeholder="Enter 2nd Team Name"
+        name="team2"
+        required
+      />
+
+      <label for="video"><b>Video</b></label>
+      <input
+        type="url"
+        placeholder="Ex: https://www.youtube.com/"
+        name="video"
+      />
+
+      <button
+        type="submit"
+        class="btn"
+        id="popup_save"
+        name="stats"
+        value="confirm_popup_save"
+      >
+        SAVE
+      </button>
+      <button type="button" class="btn cancel" onclick="closeForm()">
+        Close
+      </button>
+    </form>
   </div>
 </form>
+{% endblock %}

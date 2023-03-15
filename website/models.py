@@ -26,6 +26,10 @@ class StatSnapshot(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     statline = db.Column(db.String(10000))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
+    game_date = db.Column(db.String(100))
+    team1 = db.Column(db.String(100))
+    team2 = db.Column(db.String(100))
+    video = db.Column(db.String(100))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 

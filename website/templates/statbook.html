@@ -12,13 +12,16 @@ content %}
 
 <table style="width: 100%">
   <tr>
-    <th>DATE</th>
+    <th>GAME DATE</th>
+    <th>MATCHUP</th>
     <th>STAT LINE</th>
+    <th>VIDEO LINK</th>
   </tr>
   <ul class="list-group list-group-flush" id="statbook">
     {% for stat in user.statsnapshots %}
     <tr>
-      <td>{{ stat.date.strftime('%m-%d-%Y') }}</td>
+      <td>{{ stat.game_date }}</td>
+      <td>{{ stat.team1 }} vs. {{ stat.team2 }}</td>
       <td>
         {{ stat.statline }}
         <button
@@ -28,6 +31,11 @@ content %}
         >
           <span aria-hidden="true">&times;</span>
         </button>
+      </td>
+      <td>
+        <a href="{{stat.video}}" target="_blank" rel="noopener noreferrer"
+          >{{stat.video}}</a
+        >
       </td>
     </tr>
     {% endfor %}

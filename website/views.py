@@ -55,12 +55,16 @@ def home():
             except ValueError:
                 flash('Please enter your starting and ending minutes before clicking the minutes button.', category='error')
             print(stat.mins)
-        elif request.form['stats'] == 'save':
+        elif request.form['stats'] == 'confirm_popup_save':
+            game_date = request.form.get('game_date')
+            team1 = request.form.get('team1')
+            team2 = request.form.get('team2')
+            video = request.form.get('video')
             note = "Pts: {pts}, Rbs: {rbs}, Asts: {asts}, Stls: {stls}, Tos: {tos}, Blks: {blks}, Mins: {mins}".format(pts = stat.pts, rbs = stat.rbs, asts = stat.asts, stls = stat.stls, tos = stat.tos, blks = stat.blks, mins = stat.mins,)
-            new_note = StatSnapshot(statline=note, user_id=current_user.id)
-            db.session.add(new_note)
+            snapshot = StatSnapshot(statline=note, game_date=game_date, team1=team1, team2=team2, video=video, user_id=current_user.id)
+            db.session.add(snapshot)
             db.session.commit()
-            flash('STATS SAVED', category = 'success')
+            flash('SAVED SUCCESSFULLY!', category = 'success')
             redirect(url_for('views.statbook'))
             return render_template("statbook.html", user=current_user)
         elif request.form['stats'] == 'rbs':
