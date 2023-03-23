@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
+from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, session
 from flask_login import login_required, current_user
 from .models import Note, Stat, StatSnapshot, User
 from . import db
@@ -61,7 +61,19 @@ def home():
             team2 = request.form.get('team2')
             video = request.form.get('video')
             note = "Pts: {pts}, Rbs: {rbs}, Asts: {asts}, Stls: {stls}, Tos: {tos}, Blks: {blks}, Mins: {mins}".format(pts = stat.pts, rbs = stat.rbs, asts = stat.asts, stls = stat.stls, tos = stat.tos, blks = stat.blks, mins = stat.mins,)
-            snapshot = StatSnapshot(statline=note, game_date=game_date, team1=team1, team2=team2, video=video, user_id=current_user.id)
+            snapshot = StatSnapshot(statline=note,
+                                    pts_snapshot=stat.pts, 
+                                    rbs_snapshot=stat.rbs, 
+                                    asts_snapshot=stat.asts, 
+                                    stls_snapshot=stat.stls, 
+                                    tos_snapshot=stat.tos, 
+                                    blks_snapshot=stat.blks, 
+                                    mins_snapshot=stat.mins, 
+                                    game_date=game_date, 
+                                    team1=team1, 
+                                    team2=team2, 
+                                    video=video, 
+                                    user_id=current_user.id)
             db.session.add(snapshot)
             db.session.commit()
             flash('SAVED SUCCESSFULLY!', category = 'success')
@@ -109,18 +121,17 @@ def home():
 @views.route('/statbook', methods=['GET', 'POST'])
 @login_required
 def statbook():
-    if request.method == 'POST':
-        note = request.form.get('note')#Gets the note from the HTML 
+        # note = request.form.get('note')#Gets the note from the HTML 
 
-        if len(note) < 1:
-            flash('Note is too short!', category='error') 
-        else:
-            new_note = Note(data=note, user_id=current_user.id)  #providing the schema for the note 
-            db.session.add(new_note) #adding the note to the database 
-            db.session.commit()
-            flash('Note added!', category='success')
+        # if len(note) < 1:
+        #     flash('Note is too short!', category='error') 
+        # else:
+        #     new_note = Note(data=note, user_id=current_user.id)  #providing the schema for the note 
+        #     db.session.add(new_note) #adding the note to the database 
+        #     db.session.commit()
+        #     flash('Note added!', category='success')
 
-    return render_template('statbook.html', user=current_user)
+    return render_template('statbook.html', user=current_user,)
 
 
 @views.route('/delete-note', methods=['POST'])

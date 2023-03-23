@@ -1,44 +1,55 @@
 {% extends "base.html" %} {% block title %}Statbook{% endblock %} {% block
 content %}
-<style>
-  table,
-  th,
-  td {
-    border: 1px solid black;
-  }
-</style>
+<br />
 
-<h1 align="center">Stat Log</h1>
+<div class="four">
+  <h1><span>Statbook</span> Basketball <em>Stat</em> Sheet</h1>
+</div>
 
-<table style="width: 100%">
-  <tr>
-    <th>GAME DATE</th>
-    <th>MATCHUP</th>
-    <th>STAT LINE</th>
-    <th>VIDEO LINK</th>
-  </tr>
-  <ul class="list-group list-group-flush" id="statbook">
-    {% for stat in user.statsnapshots %}
+<table style="width: 100%" class="content-table table-sortable">
+  <thead>
     <tr>
-      <td>{{ stat.game_date }}</td>
-      <td>{{ stat.team1 }} vs. {{ stat.team2 }}</td>
-      <td>
-        {{ stat.statline }}
-        <button
-          type="button"
-          class="close"
-          onClick="deleteStatsnapshot({{ stat.id }})"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </td>
-      <td>
-        <a href="{{stat.video}}" target="_blank" rel="noopener noreferrer"
-          >{{stat.video}}</a
-        >
-      </td>
+      <th>GAME DATE</th>
+      <th>MATCHUP</th>
+      <th>POINTS</th>
+      <th>REBOUNDS</th>
+      <th>ASSISTS</th>
+      <th>STEALS</th>
+      <th>TURNOVERS</th>
+      <th>BLOCKS</th>
+      <th>MINUTES</th>
+      <th>VIDEO LINK</th>
     </tr>
-    {% endfor %}
-  </ul>
-  {% endblock %}
+  </thead>
+  <tbody>
+    <ul class="list-group list-group-flush" id="statbook">
+      {% for stat in user.statsnapshots %}
+      <tr>
+        <td>{{ stat.game_date }}</td>
+        <td>{{ stat.team1 }} vs. {{ stat.team2 }}</td>
+        <td>{{ stat.pts_snapshot }}</td>
+        <td>{{ stat.rbs_snapshot }}</td>
+        <td>{{ stat.asts_snapshot }}</td>
+        <td>{{ stat.stls_snapshot }}</td>
+        <td>{{ stat.tos_snapshot }}</td>
+        <td>{{ stat.blks_snapshot }}</td>
+        <td>{{ stat.mins_snapshot }}</td>
+        <td>
+          <a href="{{stat.video}}" target="_blank" rel="noopener noreferrer"
+            >{{stat.video}}</a
+          >
+          <button
+            type="button"
+            class="close"
+            onClick="deleteStatsnapshot({{ stat.id }})"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
+    </ul>
+  </tbody>
 </table>
+
+{% endblock %}
