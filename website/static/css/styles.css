@@ -1,3 +1,30 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 33.33% 33.33% 33.33%;
+  padding: 10px;
+}
+
+.grid-container2 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  padding: 10px;
+}
+
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.first-row-item {
+  grid-column: span 4;
+}
+
+.second-row-item {
+  grid-column: span 3;
+}
+
 .center {
   display: block;
   margin-left: auto;
@@ -15,7 +42,7 @@
 }
 
 .button:hover {
-  background-color: red;
+  background-color: #0059ff;
   color: white;
 }
 

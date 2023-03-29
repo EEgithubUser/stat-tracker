@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 10511aba635e
+Revision ID: 50b5620bdd7a
 Revises: 
-Create Date: 2023-03-07 21:50:45.888954
+Create Date: 2023-03-28 00:47:23.536512
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '10511aba635e'
+revision = '50b5620bdd7a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -50,7 +50,18 @@ def upgrade():
     op.create_table('stat_snapshot',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('statline', sa.String(length=10000), nullable=True),
-    sa.Column('date', sa.DateTime(timezone=True), nullable=True),
+    sa.Column('pts_snapshot', sa.Integer(), nullable=True),
+    sa.Column('rbs_snapshot', sa.Integer(), nullable=True),
+    sa.Column('asts_snapshot', sa.Integer(), nullable=True),
+    sa.Column('stls_snapshot', sa.Integer(), nullable=True),
+    sa.Column('tos_snapshot', sa.Integer(), nullable=True),
+    sa.Column('blks_snapshot', sa.Integer(), nullable=True),
+    sa.Column('mins_snapshot', sa.Integer(), nullable=True),
+    sa.Column('date_snapshot', sa.DateTime(timezone=True), nullable=True),
+    sa.Column('game_date', sa.String(length=100), nullable=True),
+    sa.Column('team1', sa.String(length=100), nullable=True),
+    sa.Column('team2', sa.String(length=100), nullable=True),
+    sa.Column('video', sa.String(length=100), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')

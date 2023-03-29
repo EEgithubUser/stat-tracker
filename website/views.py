@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, flash, jsonify, redirect,
 from flask_login import login_required, current_user
 from .models import Note, Stat, StatSnapshot, User
 from . import db
+from datetime import datetime
 import json
 
 views = Blueprint('views', __name__)
@@ -36,6 +37,24 @@ def home():
             db.session.add(user)
             db.session.commit()
             flash('+1 TURNOVER', category = 'success')
+        elif request.form['stats'] == 'temp':
+            try:
+                # these need to be entered, otherwise an error will be thrown
+                min_start = int(request.form.get('min_start'))
+                min_end = int(request.form.get('min_end'))
+                if min_start < 0:
+                    flash('Minutes less than 0', category = 'error')
+                elif min_end > 40:
+                    flash('Minutes greater than 40', category = 'error')
+                elif min_end > min_start:
+                    flash('End time cannot be greater than start time', category = 'error')
+                else:
+                    stat.mins = stat.mins + (min_start - min_end)
+                    db.session.add(user)
+                    db.session.commit()
+                    flash('MINUTES ADDED', category = 'success')
+            except ValueError:
+                flash('Please enter your starting and ending minutes before clicking the minutes button.', category='error')
         elif request.form['stats'] == 'mins':
             try:
                 # these need to be entered, otherwise an error will be thrown
@@ -54,12 +73,15 @@ def home():
                     flash('MINUTES ADDED', category = 'success')
             except ValueError:
                 flash('Please enter your starting and ending minutes before clicking the minutes button.', category='error')
-            print(stat.mins)
         elif request.form['stats'] == 'confirm_popup_save':
-            game_date = request.form.get('game_date')
+            date = request.form.get('game_date')
             team1 = request.form.get('team1')
             team2 = request.form.get('team2')
             video = request.form.get('video')
+
+            datetime_obj = datetime.strptime(date, '%Y-%m-%d')
+            game_date = datetime_obj.strftime("%m/%d/%Y")
+
             note = "Pts: {pts}, Rbs: {rbs}, Asts: {asts}, Stls: {stls}, Tos: {tos}, Blks: {blks}, Mins: {mins}".format(pts = stat.pts, rbs = stat.rbs, asts = stat.asts, stls = stat.stls, tos = stat.tos, blks = stat.blks, mins = stat.mins,)
             snapshot = StatSnapshot(statline=note,
                                     pts_snapshot=stat.pts, 
