@@ -14,7 +14,7 @@ DB_NAME = "database.db"
 def create_app(db_url=None):
     app = Flask(__name__)
     load_dotenv()
-    app.config['SECRET_KEY'] = config("SECRET_KEY")
+    app.config['SECRET_KEY'] = config("SECRET_KEY") or os.getenv("SECRET_KEY")
     app.config['SQLALCHEMY_DATABASE_URI'] = db_url or os.getenv("DATABASE_URL", "sqlite:///data.db")
     db.init_app(app)
     migrate = Migrate(app, db, compare_type=True)
