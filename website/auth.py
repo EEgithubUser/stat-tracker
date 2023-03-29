@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import User, Stat, StatSnapshot
 from werkzeug.security import generate_password_hash, check_password_hash
-from . import db   ##means from __init__.py import db
+from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 
 
@@ -14,7 +14,6 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
         
-        # filter all of the users that have this email right here, or id="w/e id is", and return 1st result
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):

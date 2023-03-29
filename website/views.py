@@ -11,9 +11,8 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    # these need to "initialized" from the start otherwise 404 error b/c it doesn't exist
     user = User.query.get_or_404(current_user.id)
-    stat = Stat.query.get_or_404(current_user.id) # MASSSSSIVVVVVEEEE!
+    stat = Stat.query.get_or_404(current_user.id)
 
     if request.method == 'POST':
 
@@ -37,27 +36,8 @@ def home():
             db.session.add(user)
             db.session.commit()
             flash('+1 TURNOVER', category = 'success')
-        elif request.form['stats'] == 'temp':
-            try:
-                # these need to be entered, otherwise an error will be thrown
-                min_start = int(request.form.get('min_start'))
-                min_end = int(request.form.get('min_end'))
-                if min_start < 0:
-                    flash('Minutes less than 0', category = 'error')
-                elif min_end > 40:
-                    flash('Minutes greater than 40', category = 'error')
-                elif min_end > min_start:
-                    flash('End time cannot be greater than start time', category = 'error')
-                else:
-                    stat.mins = stat.mins + (min_start - min_end)
-                    db.session.add(user)
-                    db.session.commit()
-                    flash('MINUTES ADDED', category = 'success')
-            except ValueError:
-                flash('Please enter your starting and ending minutes before clicking the minutes button.', category='error')
         elif request.form['stats'] == 'mins':
             try:
-                # these need to be entered, otherwise an error will be thrown
                 min_start = int(request.form.get('min_start'))
                 min_end = int(request.form.get('min_end'))
                 if min_start < 0:
@@ -134,39 +114,15 @@ def home():
             flash('Stats Reset', category = 'success')
         else:
             pass
-    
-    # pass in "stat" to our template, stat queries the Stat object under the current user id
-    # stat now has "access" to all of the attributes in the Stats Model
+
     return render_template("home.html", stat = Stat.query.get_or_404(current_user.id), user=current_user,)
 
 
 @views.route('/statbook', methods=['GET', 'POST'])
 @login_required
 def statbook():
-        # note = request.form.get('note')#Gets the note from the HTML 
-
-        # if len(note) < 1:
-        #     flash('Note is too short!', category='error') 
-        # else:
-        #     new_note = Note(data=note, user_id=current_user.id)  #providing the schema for the note 
-        #     db.session.add(new_note) #adding the note to the database 
-        #     db.session.commit()
-        #     flash('Note added!', category='success')
-
     return render_template('statbook.html', user=current_user,)
 
-
-@views.route('/delete-note', methods=['POST'])
-def delete_note():  
-    note = json.loads(request.data) # this function expects a JSON from the INDEX.js file 
-    noteId = note['noteId']
-    note = Note.query.get(noteId)
-    if note:
-        if note.user_id == current_user.id:
-            db.session.delete(note)
-            db.session.commit()
-
-    return jsonify({})
 
 @views.route('/delete-statsnapshot', methods=['POST'])
 def delete_statsnapshot():
